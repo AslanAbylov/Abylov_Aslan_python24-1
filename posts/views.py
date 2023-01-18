@@ -1,10 +1,8 @@
 from django.shortcuts import render, HttpResponse
 from datetime import datetime
-from . models import Products
+from . models import Products, Review
 
-def Hello(request):
-    if request.method == 'GET':
-        return HttpResponse('Hello')
+
 
 def main_view(request):
     if request.method == 'GET':
@@ -20,3 +18,12 @@ def product_view(request):
         }
 
         return render(request, 'posts/posts.html', context=context)
+
+def review_view(request, id):
+    if request.method == 'GET':
+        product = Products.objects.get(id=id)
+        reviews = Review.objects.filter(product=product)
+        return render(request, 'posts/detail.html', context={
+            'reviews': reviews,
+            'product': product
+        })

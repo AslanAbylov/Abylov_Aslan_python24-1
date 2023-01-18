@@ -9,3 +9,11 @@ class Products(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
 
 
+class Review(models.Model):
+    text = models.TextField()
+    photo = models.ImageField(null=True, blank=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+
+
+
